@@ -5,7 +5,7 @@
 #ifndef TINYRENDERER_INCLUDE_MATRIX_HPP
 #define TINYRENDERER_INCLUDE_MATRIX_HPP
 #include <ostream>
-#include "type.h"
+#include "Type.h"
 
 template<typename T, u8 N = sizeof(T)>
 class Matrix {

@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include "Matrix.hpp"
-#include "type.h"
+#include "Type.h"
 
 void line(Mat &mat, Point &a, Point &b, ColorRGB &c) {
   for (u32 y = a.y(); y < b.y(); ++y) {

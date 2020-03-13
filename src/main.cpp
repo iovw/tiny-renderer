@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cstdio>
 #include "svpng.inc"
-#include "lib.hpp"
+#include "Lib.hpp"
 
 int main(int argc, char *argv[]) {
   const u32 w = 1024, h = 1024;
