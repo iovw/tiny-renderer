@@ -1,19 +1,13 @@
+#include <algorithm>
 #include <cstdio>
 #include "svpng.inc"
-typedef unsigned char u8;
-typedef unsigned u32;
+#include "lib.hpp"
 
 int main(int argc, char *argv[]) {
-  const u32 w = 256, h = 256;
-  u8 rgb[w * h * 3], *p = rgb;
-  for (int i = 0; i < h; ++i) {
-	for (int j = 0; j < w; ++j) {
-	  *p++ = i;
-	  *p++ = j;
-	  *p++ = 128;
-	}
-  }
+  const u32 w = 1024, h = 1024;
+  Mat mat{w, h};
+
   FILE *fp = fopen("out.png", "wb");
-  svpng(fp, w, h, rgb, 0);
+  svpng(fp, w, h, mat.getData(), 0);
   return 0;
 }

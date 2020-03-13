@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.16)
 project(tinyrenderer)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 include_directories(include)
 
+file(GLOB SRC
+        "include/*.{inc,hpp,h}"
+        "src/*.cpp")
+
 add_executable(tinyrenderer
-        src/main.cpp
-)
+        ${SRC} include/type.h)
 
 #find_package(PkgConfig REQUIRED)
 #pkg_check_modules(PNG REQUIRED libpng)
