@@ -9,11 +9,14 @@
 #include "Matrix.hpp"
 #include "Type.h"
 
-void line(Mat &mat, Point &a, Point &b, ColorRGB &c) {
-  for (u32 y = a.y(); y < b.y(); ++y) {
-	for (u32 x = a.x(); x < b.x(); ++x) {
-	  mat.setColor(Point{x, y}, c);
-	}
+using Mat = Matrix<Vector3<uint8_t>>;
+using RGB = Vector3<uint8_t>;
+using P = Vector2<uint32_t>;
+
+void line(Mat &mat, const P &a, const P &b, const RGB &c) {
+  float dx = static_cast<float>(b.x() - a.x()) / static_cast<float>(b.y() - a.y());
+  for (uint32_t y = a.y(), x = a.x(); y < b.y(); ++y, x += dx) {
+	mat.setColor(P{x, y}, c);
   }
 }
 

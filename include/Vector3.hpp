@@ -11,6 +11,7 @@ class Vector3 {
 
 public:
   Vector3(T X, T Y, T Z) : _x(X), _y(Y), _z(Z) {}
+  Vector3() : Vector3(0, 0, 0) {}
   bool operator==(const Vector3 &Rhs) const {
 	return _x == Rhs._x &&
 		_y == Rhs._y &&
@@ -36,11 +37,6 @@ public:
   }
   void setZ(T Z) {
 	_z = Z;
-  }
-
-  using vec_t = std::vector<T>;
-  vec_t flat() {
-	return vec_t{_x, _y, _z};
   }
 };
 

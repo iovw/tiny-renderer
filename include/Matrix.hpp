@@ -7,46 +7,49 @@
 #include <ostream>
 #include "Type.h"
 
-template<typename T, u8 N = sizeof(T)>
+template<typename T>
+std::vector<T> flat(Vector3<T> v) {
+  return std::vector<T>{v.x(), v.y(), v.z()};
+}
+
+template<typename T>
 class Matrix {
   std::vector<T> data{};
-  u32 width;
-  u32 height;
+  uint32_t width;
+  uint32_t height;
 
-  [[nodiscard]] inline u64 getOffset(Point p) const {
+  [[nodiscard]] inline uint64_t getOffset(Vector2<uint32_t> p) const {
 	return p.y() * width + p.x();
   }
 
 public:
-  Matrix(u32 Width, u32 Height) : width(Width), height(Height) {
-	data.reserve(width * height);
+  Matrix(uint32_t Width, uint32_t Height) : width(Width), height(Height) {
+	data.resize(width * height);
   }
-  [[nodiscard]] const u8 *getData() const {
-	u8 *p = new u8[data.size() * sizeof(T)], *ph = p;
+  [[nodiscard]] const uint8_t *getData() const {
+	uint8_t *p = new uint8_t[data.size() * sizeof(T)], *ph = p;
 	for (auto i:data) {
-	  auto flatten = i.flat();
-	  for (u8 j = 0; j < N; ++j) {
+	  auto flatten = flat(i);
+	  for (uint8_t j = 0; j < flatten.size(); ++j) {
 		*p++ = flatten[j];
 	  }
 	}
 	return ph;
   }
-  [[nodiscard]] u32 getWidth() const {
+  [[nodiscard]] uint32_t getWidth() const {
 	return width;
   }
-  [[nodiscard]] u32 getHeight() const {
+  [[nodiscard]] uint32_t getHeight() const {
 	return height;
   }
 
-  void setColor(Point p, T c) {
+  void setColor(Vector2<uint32_t> p, T c) {
 	data[getOffset(p)] = c;
   }
 
-  T getColor(Point p) const {
+  T getColor(Vector2<uint32_t> p) const {
 	return data[getOffset(p)];
   }
 };
-
-using Mat = Matrix<ColorRGB>;
 
 #endif //TINYRENDERER_INCLUDE_MATRIX_HPP
