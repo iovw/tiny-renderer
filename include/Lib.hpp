@@ -7,17 +7,39 @@
 
 #include <cstdint>
 #include "Matrix.hpp"
-#include "Type.h"
+#include "Typedef.h"
 
-using Mat = Matrix<Vector3<uint8_t>>;
-using RGB = Vector3<uint8_t>;
-using P = Vector2<uint32_t>;
+namespace tr {
+using Mat = Matrix<RGB>;
 
-void line(Mat &mat, const P &a, const P &b, const RGB &c) {
-  float dx = static_cast<float>(b.x() - a.x()) / static_cast<float>(b.y() - a.y());
-  for (uint32_t y = a.y(), x = a.x(); y < b.y(); ++y, x += dx) {
-	mat.setColor(P{x, y}, c);
+void line(int32_t x0, int32_t y0, int32_t x1, int32_t y1, Mat &m, const RGB &c) {
+  int32_t xx = x1 - x0,
+	  yy = y1 - y0;
+  if (std::abs(xx) >= std::abs(yy)) {
+	if (x0 > x1) {
+	  std::swap(x0, x1);
+	}
+	float dy = static_cast<float>(yy) / static_cast<float>(std::abs(xx)),
+		y = y0;
+	for (float x = x0; x < x1;) {
+	  m.setColor(x, y, c);
+	  y += dy;
+	  x++;
+	}
+  } else {
+	if (y0 > y1) {
+	  std::swap(y0, y1);
+	}
+	float dx = static_cast<float>(xx) / static_cast<float>(std::abs(yy)),
+		x = x0;
+	for (float y = y0; y < y1;) {
+	  m.setColor(x, y, c);
+	  x += dx;
+	  y++;
+	}
   }
+}
+
 }
 
 #endif //TINYRENDERER_INCLUDE_LIB_HPP

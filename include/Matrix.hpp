@@ -5,21 +5,17 @@
 #ifndef TINYRENDERER_INCLUDE_MATRIX_HPP
 #define TINYRENDERER_INCLUDE_MATRIX_HPP
 #include <ostream>
-#include "Type.h"
+#include "Typedef.h"
 
-template<typename T>
-std::vector<T> flat(Vector3<T> v) {
-  return std::vector<T>{v.x(), v.y(), v.z()};
-}
-
+namespace tr {
 template<typename T>
 class Matrix {
   std::vector<T> data{};
   uint32_t width;
   uint32_t height;
 
-  [[nodiscard]] inline uint64_t getOffset(Vector2<uint32_t> p) const {
-	return p.y() * width + p.x();
+  [[nodiscard]] inline uint64_t getOffset(uint32_t x, uint32_t y) const {
+	return y * width + x;
   }
 
 public:
@@ -28,10 +24,9 @@ public:
   }
   [[nodiscard]] const uint8_t *getData() const {
 	uint8_t *p = new uint8_t[data.size() * sizeof(T)], *ph = p;
-	for (auto i:data) {
-	  auto flatten = flat(i);
-	  for (uint8_t j = 0; j < flatten.size(); ++j) {
-		*p++ = flatten[j];
+	for (auto y:data) {
+	  for (uint8_t x = 0; x < y.size(); ++x) {
+		*p++ = y[x];
 	  }
 	}
 	return ph;
@@ -43,13 +38,14 @@ public:
 	return height;
   }
 
-  void setColor(Vector2<uint32_t> p, T c) {
-	data[getOffset(p)] = c;
+  void setColor(uint32_t x, uint32_t y, T c) {
+	data[getOffset(x, y)] = c;
   }
 
-  T getColor(Vector2<uint32_t> p) const {
-	return data[getOffset(p)];
+  T getColor(uint32_t x, uint32_t y) const {
+	return data[getOffset(x, y)];
   }
 };
+}
 
 #endif //TINYRENDERER_INCLUDE_MATRIX_HPP
