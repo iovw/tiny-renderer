@@ -6,17 +6,20 @@
 #define TINYRENDERER_INCLUDE_TYPE_H
 
 #include <cstdint>
+#include <array>
 
-namespace tr {
-using RGB = std::array<uint8_t, 3>;
+namespace TR
+{
+    using RGB = std::array<uint8_t, 3>;
 
-namespace rgb {
-const auto White = RGB{255, 255, 255};
-const auto Dark = RGB{0, 0, 0};
-const auto Red = RGB{255, 0, 0};
-const auto Green = RGB{0, 255, 0};
-const auto Blue = RGB{0, 0, 255};
-}
+    namespace ColorRGB
+    {
+        const auto WHITE = RGB{255, 255, 255};
+        const auto DARK = RGB{0, 0, 0};
+        const auto RED = RGB{255, 0, 0};
+        const auto GREEN = RGB{0, 255, 0};
+        const auto BLUE = RGB{0, 0, 255};
+    }
 }
 
 #endif //TINYRENDERER_INCLUDE_TYPE_H

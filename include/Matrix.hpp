@@ -4,48 +4,63 @@
 
 #ifndef TINYRENDERER_INCLUDE_MATRIX_HPP
 #define TINYRENDERER_INCLUDE_MATRIX_HPP
-#include <ostream>
+#include <vector>
 #include "Typedef.h"
 
-namespace tr {
-template<typename T>
-class Matrix {
-  std::vector<T> data{};
-  uint32_t width;
-  uint32_t height;
+namespace TR
+{
+    template <typename T>
+    class Matrix
+    {
+        std::vector<T> Data{};
+        uint32_t Width;
+        uint32_t Height;
 
-  [[nodiscard]] inline uint64_t getOffset(uint32_t x, uint32_t y) const {
-	return y * width + x;
-  }
+        [[nodiscard]] uint64_t GetOffset(const uint32_t x, const uint32_t y) const
+        {
+            return static_cast<uint64_t>(y) * Width + x;
+        }
 
-public:
-  Matrix(uint32_t Width, uint32_t Height) : width(Width), height(Height) {
-	data.resize(width * height);
-  }
-  [[nodiscard]] const uint8_t *getData() const {
-	uint8_t *p = new uint8_t[data.size() * sizeof(T)], *ph = p;
-	for (auto y:data) {
-	  for (uint8_t x = 0; x < y.size(); ++x) {
-		*p++ = y[x];
-	  }
-	}
-	return ph;
-  }
-  [[nodiscard]] uint32_t getWidth() const {
-	return width;
-  }
-  [[nodiscard]] uint32_t getHeight() const {
-	return height;
-  }
+    public:
+        Matrix(const uint32_t width, const uint32_t height) :
+            Width(width), Height(height)
+        {
+            Data.resize(static_cast<uint64_t>(width) * height);
+        }
 
-  void setColor(uint32_t x, uint32_t y, T c) {
-	data[getOffset(x, y)] = c;
-  }
+        [[nodiscard]] const uint8_t *GetData() const
+        {
+            uint8_t *p = new uint8_t[Data.size() * sizeof(T)], *ph = p;
+            for (auto y : Data)
+            {
+                for (uint8_t x = 0; x < y.size(); ++x) // NOLINT(bugprone-too-small-loop-variable)
+                {
+                    *p++ = y[x];
+                }
+            }
+            return ph;
+        }
 
-  T getColor(uint32_t x, uint32_t y) const {
-	return data[getOffset(x, y)];
-  }
-};
+        [[nodiscard]] uint32_t GetWidth() const
+        {
+            return Width;
+        }
+
+        [[nodiscard]] uint32_t GetHeight() const
+        {
+            return Height;
+        }
+
+        void SetColor(const uint32_t x, const uint32_t y, T c)
+        {
+            Data[GetOffset(x, y)] = c;
+        }
+
+        [[nodiscard]] T GetColor(const uint32_t x, const uint32_t y) const
+        {
+            return Data[GetOffset(x, y)];
+        }
+    };
 }
 
 #endif //TINYRENDERER_INCLUDE_MATRIX_HPP
