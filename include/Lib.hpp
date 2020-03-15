@@ -24,7 +24,7 @@ namespace TR
         {
             std::swap(x0, y0);
             std::swap(x1, y1);
-            steep = false;
+            steep = true;
         }
 
         if (x0 > x1)

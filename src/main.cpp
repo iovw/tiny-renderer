@@ -40,7 +40,6 @@ int main(int argc, char *argv[])
     Mat image{w, h};
 
     auto model = Model{inp.c_str()};
-    // auto model = Model{"C:/Users/i/Source/tiny-renderer/resource/obj/triangle.obj"};
     for (const auto &face : model.GetFaces())
     {
         for (auto i = 0ULL; i < face.size(); ++i)
