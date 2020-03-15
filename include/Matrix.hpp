@@ -51,14 +51,27 @@ namespace TR
             return Height;
         }
 
-        void SetColor(const uint32_t x, const uint32_t y, T c)
+        void Set(const uint32_t x, const uint32_t y, T c)
         {
             Data[GetOffset(x, y)] = c;
         }
 
-        [[nodiscard]] T GetColor(const uint32_t x, const uint32_t y) const
+        [[nodiscard]] T Get(const uint32_t x, const uint32_t y) const
         {
             return Data[GetOffset(x, y)];
+        }
+
+        bool FlipVertically()
+        {
+            auto it = Data.begin(), itRv = Data.end();
+            for (auto i = 0; i < Height / 2; ++i)
+            {
+                auto begin{it};
+                std::advance(it, Width);
+                std::advance(itRv, -static_cast<int32_t>(Width));
+                std::swap_ranges(begin, it, itRv);
+            }
+            return false;
         }
     };
 }

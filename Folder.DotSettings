@@ -3,5 +3,6 @@
 	<s:String x:Key="/Default/CodeStyle/Naming/CppNaming/Abbreviations/=TR/@EntryIndexedValue">TR</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=bugprone/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=itrash/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=outp/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Vert/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Verts/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

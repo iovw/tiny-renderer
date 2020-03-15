@@ -17,6 +17,9 @@ MESSAGE("src ${SRC}")
 add_executable(tiny_renderer ${SRC})
 target_link_libraries(tiny_renderer)
 
+find_package(Boost REQUIRED COMPONENTS program_options)
+target_link_libraries(tiny_renderer ${Boost_LIBRARIES})
+include_directories(${Boost_INCLUDE_DIRS})
 #find_package(PkgConfig REQUIRED)
 #pkg_check_modules(PNG REQUIRED libpng)
 #target_link_libraries(tinyrenderer

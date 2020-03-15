@@ -17,39 +17,34 @@ namespace TR
                      int32_t x1, int32_t y1,
                      Mat &m, const RGB &c)
     {
-        const auto xx = x1 - x0,
-                   yy = y1 - y0;
-        if (std::abs(xx) >= std::abs(yy))
+        // std::cout << "line (" << x0 << " , " << y0 << ") -> (" <<
+            // x1 << " , " << y1 << ")" << std::endl;
+        auto steep = false;
+        if (std::abs(y0 - y1) > std::abs(x0 - x1))
         {
-            if (x0 > x1)
-            {
-                std::swap(x0, x1);
-            }
-            const auto dy = static_cast<float>(yy) /
-                static_cast<float>(std::abs(xx));
-            float y = y0;
-            for (float x = x0; x < x1;)
-            {
-                m.SetColor(x, y, c);
-                y += dy;
-                x++;
-            }
+            std::swap(x0, y0);
+            std::swap(x1, y1);
+            steep = false;
         }
-        else
+
+        if (x0 > x1)
         {
-            if (y0 > y1)
+            std::swap(x0, x1);
+            std::swap(y0, y1);
+        }
+        const auto dy = static_cast<float>(y1 - y0) / (x1 - x0);
+        float y = y0;
+        for (auto x = x0; x < x1; x++)
+        {
+            if (!steep)
             {
-                std::swap(y0, y1);
+                m.Set(x, y, c);
             }
-            const auto dx = static_cast<float>(xx) /
-                static_cast<float>(std::abs(yy));
-            float x = x0;
-            for (float y = y0; y < y1;)
+            else
             {
-                m.SetColor(x, y, c);
-                x += dx;
-                y++;
+                m.Set(y, x, c);
             }
+            y += dy;
         }
     }
 }
