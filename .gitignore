@@ -157,3 +157,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 .vs/
+!resource/**
